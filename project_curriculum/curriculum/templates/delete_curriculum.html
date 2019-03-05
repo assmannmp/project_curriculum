@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+
+{% block title %}Delete{% endblock %}
+
+    {% block main%}
+
+        <h1>Are you sure you want to delete the curriculum {{ curriculum.user.username}}</h1>
+        <form method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            <button type="submit" class="alert alert-info">Delete</button>
+        </form>
+
+    {% endblock %}

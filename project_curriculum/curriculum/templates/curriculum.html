@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+
+{% block title %}Curriculum{% endblock %}
+
+    {% block main%}
+        <div class="row">
+            <div  class="col-xs-6 col-sm-6 col-md-6">
+                <form action="" class="form-group">
+                        <input type="text" name="search" id="search" class="form-control input-sm" placeholder="Search">
+                        <button type="submit" class="btn btn-info btn-block">Search</button>
+                </form>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-sm">
+                <h3>List the Curriculum</h3>
+                <ul class="list-group">
+                    {% for cur in curriculum %}
+                        {% if user.is_superuser%}
+                            <li  class="list-group-item">
+                                <b><span>Curriculum: </span>{{ cur.first_name }}</b>
+                                {% if user.is_superuser %}
+                                    <a href="{% url 'curriculum_delete' cur.id %}" class="trash-item alert alert-info" >Delete</a>
+                                {% endif%}
+                                <a href="{% url 'curriculum_update' cur.id %}" class="trash-item alert alert-info" >Update</a>
+                            </li>
+                        {% else %}
+                            {% if user.username in cur.first_name%}
+                                <li  class="list-group-item">
+                                    <b><span>Curriculum: </span>{{ cur.first_name }}</b>
+                                    {% if user.is_superuser %}
+                                        <a href="{% url 'curriculum_delete' cur.id %}" class="trash-item alert alert-info" >Delete</a>
+                                    {% endif%}
+                                    <a href="{% url 'curriculum_update' cur.id %}" class="trash-item alert alert-info" >Update</a>
+                                </li>
+                            {% endif %}
+                        {% endif %}
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+    {% endblock %}
+
+
+{% block footer %}
+    <footer class="footer">
+      <div class="container">
+        <span class="text-muted">Desenvolvimento web</span>
+      </div>
+    </footer>
+{% endblock %}
